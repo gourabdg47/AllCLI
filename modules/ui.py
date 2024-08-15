@@ -24,7 +24,7 @@ def display_exit_message():
     """Display exit message."""
     clear_screen()
     console.print(Panel("Exiting the application. Goodbye!", title="Exit", style="bold red"))
-    time.sleep(2)
+    time.sleep(1)
     clear_screen()
 
 def display_journal_instructions():

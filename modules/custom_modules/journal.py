@@ -1,9 +1,12 @@
+import questionary
+
 from prompt_toolkit import PromptSession
 from prompt_toolkit.key_binding import KeyBindings
-from .ui import display_journal_instructions, display_panel, display_journal_saved_message, display_error_message
+
 import logging
 from datetime import datetime
-import questionary
+
+from ..ui import display_journal_instructions, display_panel, display_journal_saved_message, display_error_message
 
 bindings = KeyBindings()
 PROMPT_FLAG = False

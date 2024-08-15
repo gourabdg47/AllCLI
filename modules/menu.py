@@ -1,16 +1,16 @@
 import questionary
 from .ui import display_welcome_message, display_panel, display_exit_message
-from .journal import write_journal
+from .custom_modules.journal import write_journal
 
 def main_menu():
     display_welcome_message()
 
     options = [
-        "Option 1: Write Journal",
-        "Option 2: Configure Settings",
-        "Option 3: Start Process",
-        "Option 4: Donate to the dev",
-        "Option 5: Exit"
+        "1: Write Journal",
+        "2: Configure Settings",
+        "3: Start Process",
+        "4: Donate to the dev",
+        "5: Exit"
     ]
 
     choice = questionary.select(
