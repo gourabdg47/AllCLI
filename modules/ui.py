@@ -12,7 +12,7 @@ def clear_screen():
 
 def display_welcome_message():
     """Display the welcome message."""
-    clear_screen()
+    # clear_screen()
     console.print(Panel(Text("Welcome to the Modern CLI", justify="center", style="bold magenta")))
 
 def display_panel(message, title=None, style="bold green"):
@@ -24,7 +24,7 @@ def display_exit_message():
     """Display exit message."""
     clear_screen()
     console.print(Panel("Exiting the application. Goodbye!", title="Exit", style="bold red"))
-    time.sleep(1)
+    time.sleep(0.7)
     clear_screen()
 
 def display_journal_instructions():

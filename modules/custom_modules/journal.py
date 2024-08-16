@@ -3,13 +3,85 @@ import questionary
 from prompt_toolkit import PromptSession
 from prompt_toolkit.key_binding import KeyBindings
 
+import os
 import logging
 from datetime import datetime
 
 from ..ui import display_journal_instructions, display_panel, display_journal_saved_message, display_error_message
 
 bindings = KeyBindings()
+
+JOURNAL_DIR = "journals"
 PROMPT_FLAG = False
+
+
+def journal():
+    options = [
+        "1: Write Journal",
+        "2: Read / Edit Journal"
+    ]
+
+    choice = questionary.select(
+        "Choose an action:",
+        choices=options,
+        style=questionary.Style([
+            ('qmark', 'fg:#E91E63 bold'),
+            ('question', 'fg:#673AB7 bold'),
+            ('answer', 'fg:#2196F3 bold'),
+            ('pointer', 'fg:#03A9F4 bold'),
+            ('highlighted', 'fg:#03A9F4 bold'),
+            ('selected', 'fg:#4CAF50 bold'),
+            ('separator', 'fg:#E0E0E0'),
+            ('instruction', 'fg:#9E9E9E'),
+            ('text', 'fg:#FFFFFF'),
+            ('disabled', 'fg:#757575 italic')
+        ])
+    ).ask()
+
+    if choice == options[0]:
+        write_journal()
+    elif choice == options[1]:
+        read_edit_journal()
+
+def read_edit_journal():
+    # List all journal entries in the specified folder
+    try:
+        files = [f for f in os.listdir(JOURNAL_DIR) if os.path.isfile(os.path.join(JOURNAL_DIR, f))]
+        if not files:
+            display_error_message("No journal entries found.")
+            return
+
+        selected_file = questionary.select(
+            "Select a journal entry to edit:",
+            choices=files
+        ).ask()
+
+        if selected_file:
+            edit_journal_entry(selected_file)
+
+    except Exception as e:
+        logging.error(f"Error listing journal entries: {e}")
+        display_error_message(f"Failed to list journal entries!")
+
+def edit_journal_entry(filename):
+    try:
+        file_path = os.path.join(JOURNAL_DIR, filename)
+        
+        with open(file_path, 'r') as file:
+            content = file.read()
+
+        new_content = questionary.text(f"Editing {filename}:", default=content).ask()
+
+        if new_content != content:  # Check if there were any changes
+            with open(file_path, 'w') as file:
+                file.write(new_content)
+            display_journal_saved_message(f"Journal entry '{filename}' saved successfully.")
+        else:
+            display_journal_saved_message("No changes were made.")
+
+    except Exception as e:
+        logging.error(f"Error editing journal entry '{filename}': {e}")
+        display_error_message("Failed to edit journal entry.")
 
 def write_journal():
     display_panel("Journal Entry", title="Write Your Journal", style="bold green")
@@ -80,7 +152,7 @@ def save_journal_to_file(entry):
 def ask_return_to_menu():
     return_to_menu = questionary.confirm("Would you like to return to the main menu?").ask()
     if return_to_menu:
-        from .menu import main_menu
+        from ..menu import main_menu
         main_menu()
     else:
         new_entry = questionary.confirm("Would you like to enter a new journal entry?").ask()
