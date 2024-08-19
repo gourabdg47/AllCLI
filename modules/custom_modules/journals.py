@@ -16,11 +16,11 @@ JOURNAL_DIR = "journals"
 PROMPT_FLAG = False
 
 
-def journal():
+def personal():
     clear_screen()
     options = [
         "1: Write Journal",
-        "2: Read / Edit Journal"
+        "2: My Journals"
     ]
 
     choice = questionary.select(
@@ -101,7 +101,7 @@ def edit_journal_entry(filename):
         display_error_message("Failed to edit journal entry.")
 
 def write_journal():
-    display_panel("Journal Entry", title="Write Your Journal", style="bold green")
+    # display_panel("Journal Entry", title="Write Your Journal", style="bold green")
 
     session = PromptSession()
     journal_entry = []
@@ -151,8 +151,19 @@ def write_journal():
     e_main(filepath)
 
 def get_journal_file_path():
+    
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    filename = f"journals/journal_{timestamp}.txt"
+    
+    # get journal name from user
+    user_journal_name = questionary.text(f"Enter Journal Name [DEFAULT: journal_{timestamp}.txt]: ").ask()
+    if user_journal_name:
+        if user_journal_name == 'exit-':
+            # exit()
+            from ..menu import main_menu
+            main_menu()
+        filename = f"journals/{user_journal_name}.txt"
+    else:
+        filename = f"journals/journal_{timestamp}.txt"
     
     return filename
 

@@ -4,3 +4,4 @@
 2024-08-19 12:42:36 Monday - INFO - Journal saved as journals/journal_2024-08-19_12-42-36.txt - [journal.py:151]
 2024-08-19 12:42:36 Monday - INFO - Journal entry successfully saved. - [journal.py:139]
 2024-08-19 12:55:25 Monday - WARNING - User exited journal entry mode with KeyboardInterrupt. - [journal.py:136]
+2024-08-19 17:02:14 Monday - INFO - Mission details saved in journals/mission_log_2024-08-19_17-01-57.txt - [journals.py:118]

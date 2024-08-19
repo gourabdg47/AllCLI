@@ -1,16 +1,20 @@
 import os
 import logging
 
-# Ensure required directories exist
+# Directory constants
 LOG_DIRECTORY = 'logs'
 JOURNAL_DIRECTORY = 'journals'
 
 def initialize_folders():
+    """Ensure required directories exist."""
     for directory in [LOG_DIRECTORY, JOURNAL_DIRECTORY]:
         if not os.path.exists(directory):
             os.makedirs(directory)
 
 def setup_logging():
+    """Setup logging configuration with info and error handlers."""
+    initialize_folders()
+
     info_handler = logging.FileHandler(os.path.join(LOG_DIRECTORY, 'app_info.log'))
     error_handler = logging.FileHandler(os.path.join(LOG_DIRECTORY, 'app_error.log'))
 
@@ -19,7 +23,7 @@ def setup_logging():
 
     formatter = logging.Formatter(
         '%(asctime)s - %(levelname)s - %(message)s - [%(filename)s:%(lineno)d]',
-        datefmt='%Y-%m-%d %H:%M:%S %A'
+        datefmt='%Y-%m-%d %H:%M:%S'
     )
 
     info_handler.setFormatter(formatter)
@@ -32,3 +36,6 @@ def setup_logging():
     logger.addHandler(error_handler)
 
     return logger
+
+# Initialize and configure the logger globally
+logger = setup_logging()

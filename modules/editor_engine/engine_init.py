@@ -183,15 +183,18 @@ class TerminalTextEditor:
                 if key == 27:  # ESC key
                     self.mode = 'normal'
                     self.cursor_col -= 1 if self.cursor_col else 0
+                    
                 elif key != ((key) & 0x1f) and key < 128:
                     self.buffer[self.cursor_row].insert(self.cursor_col, key)
                     self.cursor_col += 1
+                    
                 elif key == ord('\n'):
                     line_content = self.buffer[self.cursor_row][self.cursor_col:]
                     self.buffer[self.cursor_row] = self.buffer[self.cursor_row][:self.cursor_col]
                     self.cursor_row += 1
                     self.cursor_col = 0
                     self.buffer.insert(self.cursor_row, [] + line_content)
+                    
                 elif key == curses.KEY_BACKSPACE:
                     if self.cursor_col:
                         self.cursor_col -= 1
@@ -202,6 +205,16 @@ class TerminalTextEditor:
                         self.cursor_row -= 1
                         self.cursor_col = len(self.buffer[self.cursor_row])
                         self.buffer[self.cursor_row] += line_content
+                
+                elif key in [curses.KEY_ENTER, 10]:  # Handle the 'Enter' key
+                    line_content = self.buffer[self.cursor_row][self.cursor_col:]
+                    self.buffer[self.cursor_row] = self.buffer[self.cursor_row][:self.cursor_col]
+                    self.cursor_row += 1
+                    self.cursor_col = 0
+                    self.buffer.insert(self.cursor_row, [] + line_content)
+                elif key == curses.KEY_DC:  # Handle the 'Delete' key
+                    if self.cursor_col < len(self.buffer[self.cursor_row]):
+                        del self.buffer[self.cursor_row][self.cursor_col]
 
             elif self.mode == 'replace_char':
                 try:
