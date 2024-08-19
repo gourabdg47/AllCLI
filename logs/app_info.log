@@ -14,3 +14,7 @@
 2024-08-19 23:21:44 - INFO - Mission details saved in mission_logs/mission_log_2024-08-19_23-20-47.txt - [mission_logs.py:136]
 2024-08-19 23:21:49 - INFO - File 'mission_logs/mission_log_2024-08-19_23-20-47.txt' encrypted successfully. - [mission_logs.py:163]
 2024-08-19 23:21:49 - INFO - File 'mission_logs/mission_log_2024-08-19_23-20-47.txt' encrypted successfully. - [mission_logs.py:163]
+2024-08-20 00:07:26 - INFO - Mission details saved in mission_logs/mission_log_2024-08-20_00-07-11.txt - [mission_logs.py:117]
+2024-08-20 00:07:26 - INFO - Mission details saved in mission_logs/mission_log_2024-08-20_00-07-11.txt - [mission_logs.py:117]
+2024-08-20 00:07:33 - INFO - File 'mission_logs/mission_log_2024-08-20_00-07-11.txt' encrypted successfully. - [encryption.py:37]
+2024-08-20 00:07:33 - INFO - File 'mission_logs/mission_log_2024-08-20_00-07-11.txt' encrypted successfully. - [encryption.py:37]

@@ -4,32 +4,14 @@ from prompt_toolkit.key_binding import KeyBindings
 import os
 import logging
 from datetime import datetime
-from cryptography.fernet import Fernet
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.backends import default_backend
-import base64
-import getpass  # For securely getting the password from the user
 from ..ui import display_journal_instructions, display_panel, display_journal_saved_message, display_error_message, clear_screen
 from ..editor_engine.main_e import e_main
+from ..encryption import encrypt_file, decrypt_file  # Import the encryption functions
 
 bindings = KeyBindings()
 
 MISSION_DIR = "mission_logs"
 PROMPT_FLAG = False
-
-def derive_key_from_password(password: str, salt: bytes) -> bytes:
-    """Derives a cryptographic key from the given password and salt."""
-    kdf = PBKDF2HMAC(
-        algorithm=hashes.SHA256(),
-        length=32,
-        salt=salt,
-        iterations=100_000,
-        backend=default_backend()
-    )
-    key = base64.urlsafe_b64encode(kdf.derive(password.encode()))
-    return key
-
 
 def mission():
     clear_screen()
@@ -106,7 +88,6 @@ def edit_journal_entry(filename):
 def write_journal():
     display_panel("Mission Log", title="Log Your Mission", style="bold green")
 
-    # Prompt for mission details
     mission_details = {
         "Mission Name": questionary.text("Enter Mission Name:").ask(),
         "Location": questionary.text("Enter Mission Location:").ask(),
@@ -138,57 +119,6 @@ def save_mission_details(filepath, details):
     except Exception as e:
         logging.error(f"Error saving mission details: {e}")
         display_error_message("Failed to save mission details.")
-
-def encrypt_file(filepath):
-    try:
-        # Prompt the user for a password
-        password = getpass.getpass(prompt="Enter encryption password: ")
-
-        # Generate a random salt
-        salt = os.urandom(16)
-
-        # Derive the encryption key from the password and salt
-        key = derive_key_from_password(password, salt)
-
-        with open(filepath, 'rb') as file:
-            data = file.read()
-
-        fernet = Fernet(key)
-        encrypted = fernet.encrypt(data)
-
-        # Save the salt and encrypted data to the file
-        with open(filepath, 'wb') as file:
-            file.write(salt + encrypted)
-
-        logging.info(f"File '{filepath}' encrypted successfully.")
-    except Exception as e:
-        logging.error(f"Error encrypting file '{filepath}': {e}")
-        display_error_message(f"Failed to encrypt file '{filepath}'.")
-
-def decrypt_file(filepath):
-    try:
-        # Prompt the user for a password
-        password = getpass.getpass(prompt="Enter decryption password: ")
-
-        with open(filepath, 'rb') as file:
-            # Read the salt from the file
-            salt = file.read(16)
-            # Read the encrypted data
-            encrypted_data = file.read()
-
-        # Derive the encryption key from the password and salt
-        key = derive_key_from_password(password, salt)
-
-        fernet = Fernet(key)
-        decrypted = fernet.decrypt(encrypted_data)
-
-        with open(filepath, 'wb') as file:
-            file.write(decrypted)
-
-        logging.info(f"File '{filepath}' decrypted successfully.")
-    except Exception as e:
-        logging.error(f"Error decrypting file '{filepath}': {e}")
-        display_error_message(f"Failed to decrypt file '{filepath}'.")
 
 def save_and_ask(journal_entry):
     try:
