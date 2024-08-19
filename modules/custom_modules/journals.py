@@ -145,7 +145,14 @@ def write_journal():
     #         break
     
     # Calling custom editor engoine 
-    e_main()
+    filepath = get_journal_file_path()
+    e_main(filepath)
+
+def get_journal_file_path():
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    filename = f"journals/journal_{timestamp}.txt"
+    
+    return filename
 
 def save_and_ask(journal_entry):
     try:

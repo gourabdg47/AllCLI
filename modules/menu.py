@@ -1,6 +1,6 @@
 import questionary
 from .ui import display_welcome_message, display_panel, display_exit_message
-from .custom_modules.journal import journal
+from .custom_modules.journals import journal
 
 def main_menu():
     display_welcome_message()
