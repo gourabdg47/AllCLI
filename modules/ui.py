@@ -12,7 +12,7 @@ def clear_screen():
 
 def display_welcome_message():
     """Display the welcome message."""
-    # clear_screen()
+    clear_screen()
     console.print(Panel(Text("Welcome to the Modern CLI", justify="center", style="bold magenta")))
 
 def display_panel(message, title=None, style="bold green"):

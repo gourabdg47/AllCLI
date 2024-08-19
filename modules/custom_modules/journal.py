@@ -7,7 +7,8 @@ import os
 import logging
 from datetime import datetime
 
-from ..ui import display_journal_instructions, display_panel, display_journal_saved_message, display_error_message
+from ..ui import display_journal_instructions, display_panel, display_journal_saved_message, display_error_message, clear_screen
+from ..editor_engine.main_e import e_main
 
 bindings = KeyBindings()
 
@@ -16,6 +17,7 @@ PROMPT_FLAG = False
 
 
 def journal():
+    clear_screen()
     options = [
         "1: Write Journal",
         "2: Read / Edit Journal"
@@ -41,6 +43,7 @@ def journal():
     if choice == options[0]:
         write_journal()
     elif choice == options[1]:
+        clear_screen()
         read_edit_journal()
 
 def read_edit_journal():
@@ -53,7 +56,19 @@ def read_edit_journal():
 
         selected_file = questionary.select(
             "Select a journal entry to edit:",
-            choices=files
+            choices=files,
+            style=questionary.Style([
+                ('qmark', 'fg:#E91E63 bold'),
+                ('question', 'fg:#673AB7 bold'),
+                ('answer', 'fg:#2196F3 bold'),
+                ('pointer', 'fg:#03A9F4 bold'),
+                ('highlighted', 'fg:#03A9F4 bold'),
+                ('selected', 'fg:#4CAF50 bold'),
+                ('separator', 'fg:#E0E0E0'),
+                ('instruction', 'fg:#9E9E9E'),
+                ('text', 'fg:#FFFFFF'),
+                ('disabled', 'fg:#757575 italic')
+            ])
         ).ask()
 
         if selected_file:
@@ -94,40 +109,43 @@ def write_journal():
 
     display_journal_instructions()
 
-    @bindings.add('c-s')
-    def save_journal(event):
-        global PROMPT_FLAG
-        save_and_ask(journal_entry)
-        # display_panel("Press ENTER to return to main menu.", style="bold green")
-        PROMPT_FLAG = True
+    # @bindings.add('c-s')
+    # def save_journal(event):
+    #     global PROMPT_FLAG
+    #     save_and_ask(journal_entry)
+    #     # display_panel("Press ENTER to return to main menu.", style="bold green")
+    #     PROMPT_FLAG = True
 
-    while not PROMPT_FLAG:
-        try:
-            prompt_text = f"{line_number}: "
-            line = session.prompt(prompt_text, key_bindings=bindings)
+    # while not PROMPT_FLAG:
+    #     try:
+    #         prompt_text = f"{line_number}: "
+    #         line = session.prompt(prompt_text, key_bindings=bindings)
 
-            if line and line.lower() == "save-me":
-                logging.info("User requested to save journal entry.")
-                save_and_ask(journal_entry)
-                ask_return_to_menu()
-                break
+    #         if line and line.lower() == "save-me":
+    #             logging.info("User requested to save journal entry.")
+    #             save_and_ask(journal_entry)
+    #             ask_return_to_menu()
+    #             break
 
-            if line:
-                journal_entry.append(line)
-                logging.debug(f"Appended line {line_number} to journal entry: {line}")
-                line_number += 1
+    #         if line:
+    #             journal_entry.append(line)
+    #             logging.debug(f"Appended line {line_number} to journal entry: {line}")
+    #             line_number += 1
 
-        except KeyboardInterrupt:
-            display_panel("Exiting journal entry mode.", style="bold red")
-            logging.warning("User exited journal entry mode with KeyboardInterrupt.")
-            ask_return_to_menu()
-            break
+    #     except KeyboardInterrupt:
+    #         display_panel("Exiting journal entry mode.", style="bold red")
+    #         logging.warning("User exited journal entry mode with KeyboardInterrupt.")
+    #         ask_return_to_menu()
+    #         break
 
-        except Exception as e:
-            display_error_message(e)
-            logging.error(f"An error occurred: {e}", exc_info=True)
-            ask_return_to_menu()
-            break
+    #     except Exception as e:
+    #         display_error_message(e)
+    #         logging.error(f"An error occurred: {e}", exc_info=True)
+    #         ask_return_to_menu()
+    #         break
+    
+    # Calling custom editor engoine 
+    e_main()
 
 def save_and_ask(journal_entry):
     try:
