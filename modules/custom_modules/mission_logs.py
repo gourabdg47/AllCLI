@@ -150,7 +150,7 @@ def write_journal():
 
     # save_mission_details(filepath, mission_details)  # Save the basic mission details
     access_template(filepath, mission_details)
-    # encrypt_file(filepath)  # Encrypt the file after writing
+    # encrypt_file(filepath)  # Encrypt the file after writing ### TODO: uncomment
 
 def get_journal_file_path():
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
