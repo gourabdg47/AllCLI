@@ -74,6 +74,7 @@ def read_edit_journal():
         if selected_file:
             edit_journal_entry(selected_file)
 
+
     except Exception as e:
         logging.error(f"Error listing journal entries: {e}")
         display_error_message(f"Failed to list journal entries!")
@@ -81,18 +82,19 @@ def read_edit_journal():
 def edit_journal_entry(filename):
     try:
         file_path = os.path.join(JOURNAL_DIR, filename)
+        e_main(file_path)
         
-        with open(file_path, 'r') as file:
-            content = file.read()
+        # with open(file_path, 'r') as file:
+        #     content = file.read()
 
-        new_content = questionary.text(f"Editing {filename}:", default=content).ask()
+        # new_content = questionary.text(f"Editing {filename}:", default=content).ask()
 
-        if new_content != content:  # Check if there were any changes
-            with open(file_path, 'w') as file:
-                file.write(new_content)
-            display_journal_saved_message(f"Journal entry '{filename}' saved successfully.")
-        else:
-            display_journal_saved_message("No changes were made.")
+        # if new_content != content:  # Check if there were any changes
+        #     with open(file_path, 'w') as file:
+        #         file.write(new_content)
+        #     display_journal_saved_message(f"Journal entry '{filename}' saved successfully.")
+        # else:
+        #     display_journal_saved_message("No changes were made.")
 
     except Exception as e:
         logging.error(f"Error editing journal entry '{filename}': {e}")
