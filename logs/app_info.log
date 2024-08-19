@@ -10,3 +10,7 @@
 2024-08-19 23:16:14 - INFO - Mission details saved in mission_logs/mission_log_2024-08-19_23-15-57.txt - [mission_logs.py:135]
 2024-08-19 23:16:23 - ERROR - Error encrypting file 'mission_logs/mission_log_2024-08-19_23-15-57.txt': 'PBKDF2HMAC' object has no attribute 'generate_key' - [mission_logs.py:163]
 2024-08-19 23:16:23 - ERROR - Error encrypting file 'mission_logs/mission_log_2024-08-19_23-15-57.txt': 'PBKDF2HMAC' object has no attribute 'generate_key' - [mission_logs.py:163]
+2024-08-19 23:21:44 - INFO - Mission details saved in mission_logs/mission_log_2024-08-19_23-20-47.txt - [mission_logs.py:136]
+2024-08-19 23:21:44 - INFO - Mission details saved in mission_logs/mission_log_2024-08-19_23-20-47.txt - [mission_logs.py:136]
+2024-08-19 23:21:49 - INFO - File 'mission_logs/mission_log_2024-08-19_23-20-47.txt' encrypted successfully. - [mission_logs.py:163]
+2024-08-19 23:21:49 - INFO - File 'mission_logs/mission_log_2024-08-19_23-20-47.txt' encrypted successfully. - [mission_logs.py:163]

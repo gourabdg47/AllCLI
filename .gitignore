@@ -38,3 +38,4 @@ logs/*
 .DS_Store
 Thumbs.db
 
+logs/app_info.log
