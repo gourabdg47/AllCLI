@@ -1,6 +1,0 @@
-2024-08-16 11:26:26 Friday - INFO - Journal saved as journals/journal_2024-08-16_11-26-26.txt - [journal.py:78]
-2024-08-16 11:26:26 Friday - INFO - Journal entry successfully saved. - [journal.py:66]
-2024-08-16 11:30:09 Friday - WARNING - User exited journal entry mode with KeyboardInterrupt. - [journal.py:50]
-2024-08-19 12:42:36 Monday - INFO - Journal saved as journals/journal_2024-08-19_12-42-36.txt - [journal.py:151]
-2024-08-19 12:42:36 Monday - INFO - Journal entry successfully saved. - [journal.py:139]
-2024-08-19 12:55:25 Monday - WARNING - User exited journal entry mode with KeyboardInterrupt. - [journal.py:136]
