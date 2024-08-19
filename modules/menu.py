@@ -1,7 +1,10 @@
 import questionary
+
 from .ui import display_welcome_message, display_panel, display_exit_message
 from modules.folder_init import logging
+
 from modules.custom_modules.journals import personal
+from modules.custom_modules.mission_logs import mission
 
 # Centralized style configuration
 STYLE = questionary.Style([
@@ -61,6 +64,7 @@ def work():
     """Start the work-related process."""
     display_panel("Initializing work process", title="Process", style="bold blue")
     # TODO: Implement work process logic here
+    mission()
 
 def donate():
     """Provide users with an option to donate to support development."""

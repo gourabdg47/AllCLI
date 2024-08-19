@@ -4,10 +4,11 @@ import logging
 # Directory constants
 LOG_DIRECTORY = 'logs'
 JOURNAL_DIRECTORY = 'journals'
+MISSION_DIR = "mission_logs"
 
 def initialize_folders():
     """Ensure required directories exist."""
-    for directory in [LOG_DIRECTORY, JOURNAL_DIRECTORY]:
+    for directory in [LOG_DIRECTORY, JOURNAL_DIRECTORY, MISSION_DIR]:
         if not os.path.exists(directory):
             os.makedirs(directory)
 
