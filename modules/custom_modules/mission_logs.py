@@ -8,10 +8,63 @@ from ..ui import display_journal_instructions, display_panel, display_journal_sa
 from ..editor_engine.main_e import e_main
 from ..encryption import encrypt_file, decrypt_file  # Import the encryption functions
 
+from jinja2 import Template
+from datetime import datetime
+
+
 bindings = KeyBindings()
 
 MISSION_DIR = "mission_logs"
 PROMPT_FLAG = False
+MISSION_LOG_TEMPLATE = "templates/mission_logs/mission_log_template.jinja"
+
+_MISSION_DATA = {}
+
+
+def get_list_input(prompt_text):
+    
+    items = []
+    while True:
+        item = questionary.text(f"{prompt_text} (leave blank to finish):").ask()
+        if not item:
+            break
+        items.append(item)
+    return items
+
+def access_template(write_filepath, mission_data):
+    # Loading the template from the file
+    with open(MISSION_LOG_TEMPLATE, "r") as template_file:
+        mission_template = template_file.read()
+        
+    # Create a Template object
+    template = Template(mission_template)
+
+    # Render the template with data
+    rendered_mission_log = template.render(mission_data)
+    print("rendered_mission_log: ", rendered_mission_log)
+    print("write_filepath: ", write_filepath)
+    # Write the rendered log to a text file
+    with open(write_filepath, "w") as file:
+        file.write(rendered_mission_log)
+        
+def get_mission_data():
+    # Get today's date and current time
+    current_date = datetime.now().strftime("%B %d, %Y")
+    current_time = datetime.now().strftime("%I:%M %p")
+    
+    _MISSION_DATA = {
+        "mission_name": questionary.text("Enter Mission Name:").ask(),
+        "date": current_date,  # Automatically set to today's date
+        "time": current_time,  # Automatically set to the current time
+        "objective": questionary.text("Enter Mission Objective:").ask(),
+        "tasks": get_list_input("Enter a task"),
+        "challenges": get_list_input("Enter a challenge"),
+        "outcome": questionary.text("Enter Outcome:").ask(),
+        "next_steps": questionary.text("Enter Next Steps:").ask()
+    }
+    
+    return _MISSION_DATA
+
 
 def mission():
     clear_screen()
@@ -88,20 +141,16 @@ def edit_journal_entry(filename):
 def write_journal():
     display_panel("Mission Log", title="Log Your Mission", style="bold green")
 
-    mission_details = {
-        "Mission Name": questionary.text("Enter Mission Name:").ask(),
-        "Location": questionary.text("Enter Mission Location:").ask(),
-        "Objective": questionary.text("Enter Mission Objective:").ask(),
-        "Participants": questionary.text("Enter Participants:").ask()
-    }
+    mission_details = get_mission_data()
 
     display_journal_instructions()
 
     filepath = get_journal_file_path()
-    e_main(filepath)  # Open the editor for detailed log entry
+    # e_main(filepath)  # Open the editor for detailed log entry
 
-    save_mission_details(filepath, mission_details)  # Save the basic mission details
-    encrypt_file(filepath)  # Encrypt the file after writing
+    # save_mission_details(filepath, mission_details)  # Save the basic mission details
+    access_template(filepath, mission_details)
+    # encrypt_file(filepath)  # Encrypt the file after writing
 
 def get_journal_file_path():
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")

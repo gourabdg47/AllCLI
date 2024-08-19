@@ -1,0 +1,27 @@
+Mission Name: All CLI Project
+
+Date: August 20, 2024 Time: 12:33 AM
+
+Objective: Create a CLI ecosystem for users
+
+Tasks:
+
+- Journal Entry
+
+- Mission Logs Entry and encryption
+
+- More features to come, needs to be a simple but complex system
+
+
+Challenges:
+
+- New packages
+
+- Multiple modules
+
+- Using custom CLI editor Vio
+
+
+Outcome: Make life simple without mouse 
+
+Next Steps: Thought process in pogress . . .
