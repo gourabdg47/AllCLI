@@ -17,7 +17,7 @@ from ...encryption import encrypt_file, decrypt_file
 
 # Global Constants
 MISSION_DIR = "mission_logs"
-MISSION_LOG_TEMPLATE_PATH = "templates/mission_logs/mission_log_template.jinja"
+MISSION_LOG_TEMPLATE_PATH = "templates/mission_jinja/mission_log_template.jinja"
 
 # Initialize KeyBindings
 bindings = KeyBindings()
