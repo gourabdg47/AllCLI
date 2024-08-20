@@ -14,10 +14,11 @@ from ...ui import (
 )
 from ...editor_engine.main_e import e_main
 from ...encryption import encrypt_file, decrypt_file
+from configs import config
 
 # Global Constants
-MISSION_DIR = "mission_logs"
-MISSION_LOG_TEMPLATE_PATH = "templates/mission_jinja/mission_log_template.jinja"
+MISSION_DIR = config.MISSION_DIR
+MISSION_LOG_TEMPLATE_PATH = config.MISSION_LOG_TEMPLATE_PATH
 
 # Initialize KeyBindings
 bindings = KeyBindings()
