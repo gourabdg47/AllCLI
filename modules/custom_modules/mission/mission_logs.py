@@ -4,9 +4,9 @@ from prompt_toolkit.key_binding import KeyBindings
 import os
 import logging
 from datetime import datetime
-from ..ui import display_journal_instructions, display_panel, display_journal_saved_message, display_error_message, clear_screen
-from ..editor_engine.main_e import e_main
-from ..encryption import encrypt_file, decrypt_file  # Import the encryption functions
+from ...ui import display_journal_instructions, display_panel, display_journal_saved_message, display_error_message, clear_screen
+from ...editor_engine.main_e import e_main
+from ...encryption import encrypt_file, decrypt_file  # Import the encryption functions
 
 from jinja2 import Template
 from datetime import datetime
@@ -191,7 +191,7 @@ def save_journal_to_file(entry):
 def ask_return_to_menu():
     return_to_menu = questionary.confirm("Would you like to return to the main menu?").ask()
     if return_to_menu:
-        from ..menu import main_menu
+        from ...menu import main_menu
         main_menu()
     else:
         new_entry = questionary.confirm("Would you like to enter a new mission log?").ask()

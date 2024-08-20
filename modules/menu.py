@@ -3,8 +3,8 @@ import questionary
 from .ui import display_welcome_message, display_panel, display_exit_message
 from modules.folder_init import logging
 
-from modules.custom_modules.journals import personal
-from modules.custom_modules.mission_logs import mission
+from modules.custom_modules.personal_menu import personal
+from modules.custom_modules.mission.mission_logs import mission
 
 from modules.settings_modules.settings_menu import settings_main
 

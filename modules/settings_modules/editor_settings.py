@@ -1,6 +1,6 @@
 import questionary
 
-from ..ui import display_welcome_message, display_panel, display_exit_message
+from ..ui import display_welcome_message, display_panel, display_exit_message, clear_screen
 from modules.folder_init import logging
 from .editor_conf.key_bindings import kb_main
 
@@ -48,6 +48,7 @@ def editor_main():
         exit()
         
 def key_bindings():
+    clear_screen()
     kb_main()
 
 def editor_configurations():
