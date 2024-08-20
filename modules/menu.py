@@ -3,8 +3,11 @@ import questionary
 from .ui import display_welcome_message, display_panel, display_exit_message
 from modules.folder_init import logging
 
-from modules.custom_modules.journals import personal
-from modules.custom_modules.mission_logs import mission
+from modules.custom_modules.personal_menu import personal
+from modules.custom_modules.mission.mission_logs import mission
+from modules.settings_modules.settings_menu import settings_main
+
+from modules.custom_modules.work_menu import work_menu
 
 # Centralized style configuration
 STYLE = questionary.Style([
@@ -42,8 +45,8 @@ def main_menu():
     # Handling the user's choice
     menu_actions = {
         options[0]: personal,
-        options[1]: work,
-        options[2]: settings,
+        options[1]: work_menu,
+        options[2]: settings_main,
         options[3]: donate,
         options[4]: exit_app
     }
@@ -55,16 +58,7 @@ def main_menu():
         display_exit_message()
         exit()
 
-def settings():
-    """Handle configuration of user settings."""
-    display_panel("Adjust your preferences", title="Settings", style="bold yellow")
-    # TODO: Implement settings logic here
 
-def work():
-    """Start the work-related process."""
-    display_panel("Initializing work process", title="Process", style="bold blue")
-    # TODO: Implement work process logic here
-    mission()
 
 def donate():
     """Provide users with an option to donate to support development."""

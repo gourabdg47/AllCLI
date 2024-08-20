@@ -13,7 +13,7 @@ def clear_screen():
 def display_welcome_message():
     """Display the welcome message."""
     clear_screen()
-    console.print(Panel(Text("Welcome to the Modern CLI", justify="center", style="bold magenta")))
+    console.print(Panel(Text("Welcome to the All CLI", justify="center", style="bold blue")))
 
 def display_panel(message, title=None, style="bold green"):
     """Display a panel with a custom message."""
@@ -35,6 +35,7 @@ def display_journal_instructions():
     
     console.print("[bold yellow]Press ENTER to choose default.[/bold yellow]")
     console.print("[bold red]Type 'exit-' to go back to main menu[/bold red]")
+    
 
 def display_journal_saved_message(filename):
     """Display a message when the journal entry is saved."""
@@ -45,3 +46,4 @@ def display_journal_saved_message(filename):
 def display_error_message(error):
     """Display an error message."""
     console.print(Panel(f"ERROR: {error}", style="bold red"))
+    time.sleep(1.3)

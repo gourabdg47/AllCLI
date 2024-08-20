@@ -178,43 +178,6 @@ class TerminalTextEditor:
                     self.cursor_col = len_current_row
                 if key != ord('0') and self.mode not in ['delete', 'yank']:
                     self.input_buffer = ''
-
-            # elif self.mode in ['insert', 'open']:
-            #     if key == 27:  # ESC key
-            #         self.mode = 'normal'
-            #         self.cursor_col -= 1 if self.cursor_col else 0
-                    
-            #     elif key != ((key) & 0x1f) and key < 128:
-            #         self.buffer[self.cursor_row].insert(self.cursor_col, key)
-            #         self.cursor_col += 1
-                    
-            #     elif key == ord('\n'):
-            #         line_content = self.buffer[self.cursor_row][self.cursor_col:]
-            #         self.buffer[self.cursor_row] = self.buffer[self.cursor_row][:self.cursor_col]
-            #         self.cursor_row += 1
-            #         self.cursor_col = 0
-            #         self.buffer.insert(self.cursor_row, [] + line_content)
-                    
-            #     elif key == curses.KEY_BACKSPACE:
-            #         if self.cursor_col:
-            #             self.cursor_col -= 1
-            #             del self.buffer[self.cursor_row][self.cursor_col]
-            #         elif self.cursor_row:
-            #             line_content = self.buffer[self.cursor_row][self.cursor_col:]
-            #             del self.buffer[self.cursor_row]
-            #             self.cursor_row -= 1
-            #             self.cursor_col = len(self.buffer[self.cursor_row])
-            #             self.buffer[self.cursor_row] += line_content
-                
-            #     elif key in [curses.KEY_ENTER, 10]:  # Handle the 'Enter' key
-            #         line_content = self.buffer[self.cursor_row][self.cursor_col:]
-            #         self.buffer[self.cursor_row] = self.buffer[self.cursor_row][:self.cursor_col]
-            #         self.cursor_row += 1
-            #         self.cursor_col = 0
-            #         self.buffer.insert(self.cursor_row, [] + line_content)
-            #     elif key == curses.KEY_DC:  # Handle the 'Delete' key
-            #         if self.cursor_col < len(self.buffer[self.cursor_row]):
-            #             del self.buffer[self.cursor_row][self.cursor_col]
             
             elif self.mode in ['insert', 'open']:
                 if key == 27:  # ESC key
@@ -231,7 +194,6 @@ class TerminalTextEditor:
                 elif key in [curses.KEY_BACKSPACE, 8]:  # Handle the 'Backspace' key
                     if self.cursor_col > 0:  # If not at the beginning of the line
                         self.cursor_col -= 1
-                        print("self.buffer: ", self.buffer)
                         del self.buffer[self.cursor_row][self.cursor_col]
                     elif self.cursor_row > 0:  # If at the beginning of the line, join with the previous line
                         # Save the remaining content of the current line
