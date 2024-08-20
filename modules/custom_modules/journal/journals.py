@@ -13,10 +13,11 @@ from ...ui import (
     clear_screen
 )
 from ...editor_engine.main_e import e_main
+from configs import config
 
 bindings = KeyBindings()
 
-JOURNAL_DIR = "journals"
+JOURNAL_DIR = config.JOURNAL_DIRECTORY
 SAVE_FLAG = False
 
 def journal_menu():

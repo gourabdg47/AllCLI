@@ -1,10 +1,12 @@
 import os
 import logging
 
+from configs import config
+
 # Directory constants
-LOG_DIRECTORY = 'logs'
-JOURNAL_DIRECTORY = 'journals'
-MISSION_DIR = "mission_logs"
+LOG_DIRECTORY = config.LOG_DIRECTORY
+JOURNAL_DIRECTORY = config.JOURNAL_DIRECTORY
+MISSION_DIR = config.MISSION_DIR
 
 def initialize_folders():
     """Ensure required directories exist."""

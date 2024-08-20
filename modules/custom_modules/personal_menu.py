@@ -20,6 +20,7 @@ bindings = KeyBindings()
 def personal(): # Main method
     
     clear_screen()
+    
     options = [
         "1: Journals",
         "2: Finance management ",

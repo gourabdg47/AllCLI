@@ -11,6 +11,8 @@ journals/
 journals/*
 mission_logs/*
 mission_logs/
+statics/
+starics*
 
 # Ignore log files
 *.log

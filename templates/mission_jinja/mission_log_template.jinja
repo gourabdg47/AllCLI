@@ -1,0 +1,38 @@
+======================
+**Mission Log**
+======================
+
+**Mission Name:** {{ mission_name }}
+
+**Date:** {{ date }} **|** **Time:** {{ time }}
+
+---
+
+**Objective:**  
+{{ objective }}
+
+---
+
+**Tasks:**
+{% for task in tasks %}
+- {{ task }}
+{% endfor %}
+
+---
+
+**Challenges:**
+{% for challenge in challenges %}
+- {{ challenge }}
+{% endfor %}
+
+---
+
+**Outcome:**  
+{{ outcome }}
+
+---
+
+**Next Steps:**  
+{{ next_steps }}
+
+======================
