@@ -28,7 +28,7 @@ def get_user_list_input(prompt_text):
     while True:
         item = questionary.text(f"{prompt_text} (leave blank to finish):").ask()
         if not item:
-            break
+            break;
         items.append(item)
     return items
 
@@ -62,9 +62,14 @@ def collect_mission_data():
     return mission_data
 
 def mission():
-    """Main menu to write or edit mission logs."""
+    """Main menu to write, edit, search, or delete mission logs."""
     clear_screen()
-    options = ["1: Write Mission Log", "2: Read / Edit Mission Log"]
+    options = [
+        "1: Write Mission Log", 
+        "2: Read / Edit Mission Log", 
+        "3: Search Mission Logs", 
+        "4: Delete Mission Log"
+    ]
 
     choice = questionary.select(
         "Choose an action:",
@@ -87,6 +92,10 @@ def mission():
         write_mission_log()
     elif choice == options[1]:
         edit_existing_mission_log()
+    elif choice == options[2]:
+        search_mission_logs() # TODO: Not working
+    elif choice == options[3]:
+        delete_mission_log()
 
 def edit_existing_mission_log():
     """Allow the user to select and edit an existing mission log."""
@@ -132,6 +141,65 @@ def edit_mission_log(filename):
     except Exception as e:
         logging.error(f"Error editing mission log '{filename}': {e}")
         display_error_message("Failed to edit mission log.")
+
+def search_mission_logs():
+    """Search for mission logs containing a specific keyword."""
+    clear_screen()
+    keyword = questionary.text("Enter a keyword to search for:").ask()
+
+    try:
+        files = [f for f in os.listdir(MISSION_DIR) if os.path.isfile(os.path.join(MISSION_DIR, f))]
+        matching_files = []
+
+        for file in files:
+            decrypt_file(os.path.join(MISSION_DIR, file))
+            with open(os.path.join(MISSION_DIR, file), "r") as f:
+                content = f.read()
+                if keyword.lower() in content.lower():
+                    matching_files.append(file)
+        
+        if not matching_files:
+            display_error_message("No matching mission logs found.")
+        else:
+            display_panel("\n".join(matching_files), title="Search Results", style="bold green")
+
+    except Exception as e:
+        logging.error(f"Error searching mission logs: {e}")
+        display_error_message("Failed to search mission logs.")
+
+def delete_mission_log():
+    """Delete a selected mission log."""
+    clear_screen()
+    try:
+        files = [f for f in os.listdir(MISSION_DIR) if os.path.isfile(os.path.join(MISSION_DIR, f))]
+        if not files:
+            display_error_message("No mission logs found.")
+            return
+
+        selected_file = questionary.select(
+            "Select a mission log to delete:",
+            choices=files,
+            style=questionary.Style([
+                ('qmark', 'fg:#E91E63 bold'),
+                ('question', 'fg:#673AB7 bold'),
+                ('answer', 'fg:#2196F3 bold'),
+                ('pointer', 'fg:#03A9F4 bold'),
+                ('highlighted', 'fg:#03A9F4 bold'),
+                ('selected', 'fg:#4CAF50 bold'),
+                ('separator', 'fg:#E0E0E0'),
+                ('instruction', 'fg:#9E9E9E'),
+                ('text', 'fg:#FFFFFF'),
+                ('disabled', 'fg:#757575 italic')
+            ])
+        ).ask()
+
+        if selected_file:
+            os.remove(os.path.join(MISSION_DIR, selected_file))
+            display_panel(f"Mission log '{selected_file}' deleted.", title="Delete Confirmation", style="bold red")
+
+    except Exception as e:
+        logging.error(f"Error deleting mission log: {e}")
+        display_error_message("Failed to delete mission log.")
 
 def write_mission_log():
     """Create a new mission log entry."""
