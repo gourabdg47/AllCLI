@@ -35,6 +35,7 @@ def display_journal_instructions():
     
     console.print("[bold yellow]Press ENTER to choose default.[/bold yellow]")
     console.print("[bold red]Type 'exit-' to go back to main menu[/bold red]")
+    
 
 def display_journal_saved_message(filename):
     """Display a message when the journal entry is saved."""
