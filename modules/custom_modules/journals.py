@@ -16,11 +16,13 @@ JOURNAL_DIR = "journals"
 PROMPT_FLAG = False
 
 
-def personal():
+def journal_menu():
+    
     clear_screen()
     options = [
         "1: Write Journal",
-        "2: My Journals"
+        "2: My Journals",
+        "3: Main menu"
     ]
 
     choice = questionary.select(
@@ -45,6 +47,48 @@ def personal():
     elif choice == options[1]:
         clear_screen()
         read_edit_journal()
+    elif choice == options[2]:
+        return_home()
+        
+def finance_menu():
+    clear_screen()
+    pass
+
+def personal(): # Main method
+    
+    clear_screen()
+    options = [
+        "1: Journals",
+        "2: Finance management ",
+        "3: Main Menu"
+    ]
+
+    choice = questionary.select(
+        "Choose an action:",
+        choices=options,
+        style=questionary.Style([
+            ('qmark', 'fg:#E91E63 bold'),
+            ('question', 'fg:#673AB7 bold'),
+            ('answer', 'fg:#2196F3 bold'),
+            ('pointer', 'fg:#03A9F4 bold'),
+            ('highlighted', 'fg:#03A9F4 bold'),
+            ('selected', 'fg:#4CAF50 bold'),
+            ('separator', 'fg:#E0E0E0'),
+            ('instruction', 'fg:#9E9E9E'),
+            ('text', 'fg:#FFFFFF'),
+            ('disabled', 'fg:#757575 italic')
+        ])
+    ).ask()
+
+    if choice == options[0]:
+        journal_menu()
+    elif choice == options[1]:
+        finance_menu()
+    elif choice == options[2]:
+        return_home()
+    
+def return_home():
+    pass
 
 def read_edit_journal():
     # List all journal entries in the specified folder

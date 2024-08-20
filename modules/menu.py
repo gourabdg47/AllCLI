@@ -6,6 +6,8 @@ from modules.folder_init import logging
 from modules.custom_modules.journals import personal
 from modules.custom_modules.mission_logs import mission
 
+from modules.settings_modules.settings_menu import settings_main
+
 # Centralized style configuration
 STYLE = questionary.Style([
     ('qmark', 'fg:#E91E63 bold'),
@@ -56,9 +58,8 @@ def main_menu():
         exit()
 
 def settings():
-    """Handle configuration of user settings."""
-    display_panel("Adjust your preferences", title="Settings", style="bold yellow")
-    # TODO: Implement settings logic here
+    
+    settings_main()
 
 def work():
     """Start the work-related process."""
