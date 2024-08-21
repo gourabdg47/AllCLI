@@ -13,6 +13,7 @@ from modules.folder_init import initialize_folders, setup_logging
     (e.g., Slack for work communication, Trello for project management).
     - Email Integration: Enable users to link their email accounts to manage work or personal 
     emails directly from the app.
+* p2p public chat (https://www.youtube.com/watch?v=1Fay1pjttLg)
 * Data Backup and Sync (Cloud Sync, Backup Options)
 * ssh & ftp support
 
