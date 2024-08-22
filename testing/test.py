@@ -25,6 +25,34 @@ def draw_info_window(info_win):
         info_win.addstr(idx, 0, line[:info_win.getmaxyx()[1]])
     info_win.refresh()
 
+    # Display the menu
+    menu_options = [
+        "1: Personal",
+        "2: Work",  # Mission logs, etc.
+        "3: Settings",   # Configs, Templates, Preferences
+        "4: Support Development",  # Donation option
+        "5: Exit"
+    ]
+    for idx, option in enumerate(menu_options):
+        info_win.addstr(idx + len(welcome_output.splitlines()) + 1, 0, option)
+    info_win.refresh()
+
+def handle_menu_selection(info_win, option):
+    info_win.clear()
+    if option == '1':
+        info_win.addstr(0, 0, "Personal Information Selected")
+    elif option == '2':
+        info_win.addstr(0, 0, "Work Information Selected")
+    elif option == '3':
+        info_win.addstr(0, 0, "Settings Selected")
+    elif option == '4':
+        info_win.addstr(0, 0, "Support Development Selected")
+    elif option == '5':
+        info_win.addstr(0, 0, "Exiting...")
+    else:
+        info_win.addstr(0, 0, "Invalid Option")
+    info_win.refresh()
+
 def main(stdscr):
     # Get screen dimensions
     height, width = stdscr.getmaxyx()
@@ -42,7 +70,7 @@ def main(stdscr):
     draw_info_window(info_win)
 
     # Create a status bar for the command window
-    statusbar_str = "COMMAND MODE -- :q to quit | Press 'i' to enter input mode"
+    statusbar_str = "COMMAND MODE -- :q to quit | Press 'i' to enter input mode | Choose option (1-5)"
     cmd_win.attron(curses.color_pair(1))
     cmd_win.addstr(1, 0, statusbar_str)
     cmd_win.addstr(1, len(statusbar_str), " " * (width - len(statusbar_str) - 1))
@@ -72,6 +100,18 @@ def main(stdscr):
                 command_mode = False
                 input_str = ""
                 cmd_win.clear()
+            elif key in (ord('1'), ord('2'), ord('3'), ord('4'), ord('5')):
+                # Handle menu selection
+                handle_menu_selection(info_win, chr(key))
+                if key == ord('5'):
+                    break
+                command_mode = True
+                cmd_win.clear()
+                cmd_win.attron(curses.color_pair(1))
+                cmd_win.addstr(1, 0, statusbar_str)
+                cmd_win.addstr(1, len(statusbar_str), " " * (width - len(statusbar_str) - 1))
+                cmd_win.attroff(curses.color_pair(1))
+                cmd_win.refresh()
             elif key == ord('q'):
                 break
 
@@ -80,8 +120,6 @@ def main(stdscr):
             key = cmd_win.getch()
             if key == ord('\n'):
                 # Enter pressed, process the command
-                if input_str == "q":
-                    break
                 command_mode = True
                 cmd_win.clear()
                 cmd_win.attron(curses.color_pair(1))
