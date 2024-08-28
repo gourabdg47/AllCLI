@@ -23,8 +23,10 @@ def personal(): # Main method
     
     options = [
         "1: Journals",
-        "2: Finance management ",
-        "3: Main Menu"
+        "2: TODOs",
+        "3: Blog",
+        "4: Finance management",
+        "5: Main Menu"
     ]
 
     choice = questionary.select(
@@ -46,9 +48,9 @@ def personal(): # Main method
 
     if choice == options[0]:
         journal_menu()
-    elif choice == options[1]:
+    elif choice == options[3]:
         finance_menu()
-    elif choice == options[2]:
+    elif choice == options[4]:
         return_home()
     
 def return_home():
